@@ -31,21 +31,6 @@
 
 		var topics = ["Pikachu", "Chopper", "Boo", "Hedgehog"];
 
-		$(".gif").on("click", function() {
-
-		var state = $(this).attr("data-state");
-		console.log(state);
-
-		if (state === "still") {
-			$(this).attr("src", $(this).attr("data-animate"));
-			$(this).attr("data-state", "animate");
-		}
-		else {
-			$(this).attr("src", $(this).attr("data-still"));
-			$(this).attr("data-state", "still");
-		}
-	});
-
 		function displaygifs() {
 			var watch = $(this).attr("data-name");
 			var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + watch +"&api_key=dc6zaTOxFJmzC&limit=10";
@@ -64,15 +49,16 @@
 
 			for (var a = 0; a < results.length; a++) {
 
-				var topicDiv = $("<div>");
+				// var topicDiv = $("<div>");
 				var topicImage = $("<img>");
 				$(topicImage).attr("src", results[a].images.fixed_height_still.url);
 				$(topicImage).attr("data-still", results[a].images.fixed_height_still.url);
 				$(topicImage).attr("data-animate", results[a].images.fixed_height.url);
 				$(topicImage).attr("data-state", "still");
 				$(topicImage).attr("class", "gif");
-				topicDiv.append(topicImage);
-				$("#gif-view").prepend(topicDiv);
+				// topicDiv.append(topicImage);
+				// $("#gif-view").prepend(topicDiv);
+				$("#gif-view").append(topicImage);
 			}
 		});
 		
@@ -105,6 +91,21 @@
 	$(document).on("click", ".top", displaygifs);
 
 	startButtons();
+
+			 $(document).on("click", ".gif", function() {
+
+		var state = $(this).attr("data-state");
+		console.log(state);
+
+		if (state === "still") {
+			$(this).attr("src", $(this).attr("data-animate"));
+			$(this).attr("data-state", "animate");
+		}
+		else {
+			$(this).attr("src", $(this).attr("data-still"));
+			$(this).attr("data-state", "still");
+		}
+	});
 
 	</script>
 
